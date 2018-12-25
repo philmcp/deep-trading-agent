@@ -6,3 +6,7 @@ code/config/config.cfg
 *.DS_Store
 *.pyc
 *.swp
+*.csv
+assets/*
+assets/*/*
+assets/

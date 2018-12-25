@@ -35,11 +35,11 @@ RUN pip --no-cache-dir install \
         pandas \
         scipy \
         sklearn \
-        tqdm 
+        tqdm
 
 #Install tensorflow version "1.1.0"
 RUN pip --no-cache-dir install tensorflow==1.1.0
-        
+
 # --- DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
 # These lines will be edited automatically by parameterized_docker_build.sh. #
 # COPY _PIP_FILE_ /
@@ -53,15 +53,29 @@ RUN mkdir deep-trading-agent
 COPY . /deep-trading-agent/
 
 # Download the latest dataset from the Bitcoincharts Archive
-RUN mkdir /deep-trading-agent/data
-RUN wget http://api.bitcoincharts.com/v1/csv/coinbaseUSD.csv.gz -P /deep-trading-agent/data/
-RUN gunzip /deep-trading-agent/data/coinbaseUSD.csv.gz
-RUN python2 /deep-trading-agent/code/preprocess.py --transactions /deep-trading-agent/data/coinbaseUSD.csv --dataset /deep-trading-agent/data/btc.csv 
-RUN rm /deep-trading-agent/data/coinbaseUSD.csv
+#RUN mkdir /deep-trading-agent/data
+#RUN wget http://api.bitcoincharts.com/v1/csv/coinbaseUSD.csv.gz -P /deep-trading-agent/data/
+#RUN gunzip /deep-trading-agent/data/coinbaseUSD.csv.gz
+#RUN python2 /deep-trading-agent/code/preprocess.py --transactions /deep-trading-agent/data/coinbaseUSD.csv --dataset /deep-trading-agent/data/btc.csv
+#RUN rm /deep-trading-agent/data/coinbaseUSD.csv
 
 # Setup logging enviroment
 RUN mkdir /deep-trading-agent/logs /deep-trading-agent/logs/saved_models /deep-trading-agent/logs/tensorboard
 RUN touch /deep-trading-agent/logs/run.log
 
+#RUN apt-get update
+#RUN export TERM=xterm
+#RUN apt-get install nano
+
+
+
+
+
+
 # TensorBoard
 EXPOSE 6006
+
+#RUN screen
+
+#RUN tensorboard --logdir='/deep-trading-agent/logs/tensorboard'
+#RUN python /deep-trading-agent/code/main.py --config /deep-trading-agent/code/config/config.cfg
